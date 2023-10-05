@@ -21,9 +21,9 @@ const prepareAndStartServer = () =>{
         // const response = await repo.getById('1');
         // console.log(response);
 
-        const service = new UserService();
-        const newToken = service.createToken({email : 'abc@gmail.com', id : 1});
-        console.log('new token is', newToken);
+        // const service = new UserService();
+        // const newToken = service.createToken({email : 'abc@gmail.com', id : 1});
+        // console.log('new token is', newToken);
     });
 }
 
