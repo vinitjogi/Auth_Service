@@ -6,6 +6,8 @@ const app = express();
 // const UserService = require('./services/user-service');
 // const userRepository = require('./repository/user-repository');
 const db = require('./models/index');
+const { User, Role } = require('./models/index');
+
 
 const prepareAndStartServer = () =>{
     app.listen(PORT, async () => {
@@ -28,6 +30,13 @@ const prepareAndStartServer = () =>{
         if(process.env.DB_SYNC){
             db.sequelize.sync({alter : true});
         }
+
+        // const u1 = await User.findByPk(9);
+        // const r1 = await Role.findByPk(2);  
+
+        // u1.addRole(r1);
+    //     const response = await u1.getRoles();
+    //     console.log(response);
     });
 }
 
