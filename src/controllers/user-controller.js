@@ -40,8 +40,8 @@ const signIn = async(req, res) => {
         console.log(error);
         return res.status(500).json({
             message : 'something went wrong',
+            data : {}, 
             success : false,
-            data : {},
             err : error
         });
     }
@@ -58,10 +58,11 @@ const isAuthenticated = async(req, res) => {
             message : 'user is authenticated and token is valid'
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message : 'something went wrong',
-            success : false,
             data : {},
+            success : false,
             err : error
         });
     }
