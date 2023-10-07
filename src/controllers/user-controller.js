@@ -17,12 +17,12 @@ const create = async(req,res) => {
             err : {}
         });
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            message : 'cannot create user',
+        // console.log(error);
+        return res.status(error.statusCode).json({
+            message : error.message,
             success : false,
             data : {},
-            err : error
+            err : error.explanation
         });
     }
 }

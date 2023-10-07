@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { JWT_KEY } = require('../config/serverConfig');
 const UserRepository = require('../repository/user-repository');
+const AppError = require('../utils/error-handler');
 
 class UserService {
 
@@ -15,6 +16,10 @@ class UserService {
             const user = await this.userRepository.create(data);
             return user;
         } catch (error) {
+            // console.log('service error', error.name);
+            if(error.name == 'SequelizeValidationError'){
+                throw error;
+            }
             console.log('Something went wrong in service layer');
             throw error;
         }
@@ -23,8 +28,7 @@ class UserService {
     async signIn(email, plainPasword){
         try {
             // step 1 => fetch the user using the email
-            const user = await this.userRepository.getByEmail(email);
-            
+            const user = await this.userRepository.getByEmail(email); // this will return id email & password
             //step 2 => comapare incoming password with stored encrypted password
             const passwordMatch = await this.checkPassword(plainPasword, user.password);
 
