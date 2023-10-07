@@ -41,6 +41,10 @@ class UserService {
             const newJwt = this.createToken({email : user.email, id : user.id});
             return newJwt;
         } catch (error) {
+
+            if(error.name == 'AttributeNotFound'){
+                throw error;
+            }
             console.log('Something went wrong in signin  process');
             throw error;   
         }

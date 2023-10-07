@@ -1,5 +1,7 @@
 const ValidationError  = require("../utils/validation-error");
 const { User, Role} = require("../models/index");
+const ClientError = require("../utils/client-error");
+const { StatusCodes } = require('http-status-codes');
 
 class UserRepository {
     async create(data) {
@@ -25,7 +27,7 @@ class UserRepository {
             });
             return true;
         } catch (error) {
-            console.log("Somethiing went wrong in repository layer");
+            console.log("Something went wrong in repository layer");
             throw error;
         }
     }
@@ -37,7 +39,7 @@ class UserRepository {
             });
             return user;
         } catch (error) {
-            console.log("Somethiing went wrong in repository layer");
+            console.log("Something went wrong in repository layer");
             throw error;
         }
     }
@@ -49,9 +51,18 @@ class UserRepository {
                     email : userEmail
                 }
             });
+            if(!user){
+                throw new ClientError(
+                    'AttributeNotFound',
+                    'Invalid email sent in the request',
+                    'No such email exist',
+                    StatusCodes.NOT_FOUND,
+                );
+            }
             return user;
         } catch (error) {
-            console.log("Somethiing went wrong in repository layer");
+            console.log(error);
+            console.log("Something went wrong in repository layer");
             throw error;
         }
     }
@@ -66,7 +77,7 @@ class UserRepository {
             });
             return user.hasRole(adminRole);
         } catch (error) {
-            console.log("Somethiing went wrong in repository layer");
+            console.log("Something went wrong in repository layer");
             throw error;
         }
     }
