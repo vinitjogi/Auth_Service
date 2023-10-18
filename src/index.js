@@ -15,7 +15,7 @@ const prepareAndStartServer = () =>{
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended : true}));
 
-        app.use('/api', apiRoutes);
+        app.use('/authservice/api', apiRoutes);
         
         console.log(`Server Started On Port ${PORT}`);
 
